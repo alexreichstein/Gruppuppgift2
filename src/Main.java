@@ -3,26 +3,39 @@ import First.UserDTO;
 import First.UserRole;
 import First.UserService;
 import Second.MyArrayList;
+import Third.Calculator;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
         /*
-         ### 2.
+         ### 3.
 
-        Skriv en enkel EGEN ArrayList implementation med följande funktioner:
-            - `add` Lägger till element i listan
-            - `remove` Tar bort element från listan
-            - `get` Hämtar ett element baserat på index
-            - `clear` Tömmer hela listan / Raderar alla element
+        Ni får följande klass:
 
-            VIKTIGT: Koden får inte på något sätt innehålla den existerande ArrayList klassen som finns inbyggd i Java.
-            Er uppgift är att skapa en egen sådan.
+        ```java
+            public class Calculator {
+            private int number;
 
+        private Calculator(int number) {
+        this.number = numbers;
+    }
 
+        private int add(int other) {
+        return this.number + other;
+        }
+        }
+            ```
+        Skapa ett nytt objekt utifrån klassen, skicka in valfritt nummer som argument till constructorn,
+        och anropa sedan `add` funktionen, allt genom att använda reflection.
+        Koden måste skrivas i en separat klass.
 */
+
+        // FRÅGA 1
         List<User> users = List.of(
                 new User(1, "Robin Palm", "Robin@mail.com", true, UserRole.ADMIN),
                 new User(2, "Alex Reichstein", "Alex@mail.com", false, UserRole.ADMIN),
@@ -34,6 +47,7 @@ public class Main {
         List<UserDTO> activeAdmins = service.getActiveAdminUsers(users);
         activeAdmins.forEach(System.out::println);
 
+        // FRÅGA 2
         MyArrayList<String> myArray = new  MyArrayList<>();
         myArray.add("Päron");
         myArray.add("Banan");
@@ -50,5 +64,26 @@ public class Main {
         System.out.println(myArray + "tomt");
 
 
+
+        // FRÅGA 3
+
+        try {
+            Class<?> clazz = Class.forName("Third.Calculator");
+
+            Constructor<?> constructor = clazz.getDeclaredConstructor(int.class);
+            constructor.setAccessible(true);
+
+            Object newInstance = constructor.newInstance(1);
+
+            Method add = clazz.getDeclaredMethod("add", int.class);
+            add.setAccessible(true);
+
+            Object result = add.invoke(newInstance, 5);
+
+            System.out.println("Resultat: " + result);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
