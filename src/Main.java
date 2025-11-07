@@ -2,9 +2,10 @@ import First.User;
 import First.UserDTO;
 import First.UserRole;
 import First.UserService;
+import Fourth.AutoCall;
+import Fourth.AutoCaller;
+import Fourth.TestClass;
 import Second.MyArrayList;
-import Third.Calculator;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -13,26 +14,11 @@ public class Main {
     public static void main(String[] args) {
 
         /*
-         ### 3.
+         Skriv en funktion som tar in ett objekt, vilket som helst,
+         och anropar alla metoder för objektet som har en `@AutoCall` annotation.
+         Ni skall skapa den själva.
+         Metoderna med `@AutoCall` kan inte ha några parametrar när ni testar.
 
-        Ni får följande klass:
-
-        ```java
-            public class Calculator {
-            private int number;
-
-        private Calculator(int number) {
-        this.number = numbers;
-    }
-
-        private int add(int other) {
-        return this.number + other;
-        }
-        }
-            ```
-        Skapa ett nytt objekt utifrån klassen, skicka in valfritt nummer som argument till constructorn,
-        och anropa sedan `add` funktionen, allt genom att använda reflection.
-        Koden måste skrivas i en separat klass.
 */
 
         // FRÅGA 1
@@ -85,5 +71,14 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // FRÅGA 4
+
+        TestClass test = new TestClass();
+
+        AutoCaller.callMethods(test);
+
+
     }
 }
+
